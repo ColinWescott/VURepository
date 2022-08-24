@@ -1,0 +1,197 @@
+---
+title: "Assessment 3 - Case Study"
+author: "Colin W"
+date: "2022-08-18"
+output: 
+  bookdown::html_document2:
+    code_folding: hide
+---
+
+```{r setup, R.options=knitr::opts_chunk$set(warnings=FALSE, message=FALSE, fig.width=12, fig.height=8)}
+```
+
+```{r Packages}
+#load packages
+library(tidyverse)
+library(viridis)
+library(plotly)
+library(bookdown)
+library(dplyr)
+library(kableExtra)
+
+#load data
+SuperNetball <- read.csv("Data/Dataset3_Assessment3.csv")
+```
+## Super Netball Stats Case Study
+
+As an avid NBA fan I decided to calculate some basic data from the netball dataset into NBA-type stats. 
+
+These are:  
+* Goals/game  
+* Most goals/game  
+* 1 point shooting %  
+* 2 point shooting %
+* Assist to turnover ratio
+
+&nbsp;  
+&nbsp;
+
+&nbsp; 
+
+### Most goals/team
+
+```{r fig1, fig.cap = 'Column plot showing goals scored per game for each team in Super Netball', fig.height = 5, fig.width = 8, fig.align = "center"}
+#
+#
+#create subset for goals scored per team per game
+  Goalspergame <- SuperNetball %>% 
+  filter(Statistic == "goals" & Total>"0.0") %>%
+   group_by(Team) %>%                         
+  summarise_at(vars(Total),              
+               list(totalgoals = sum)) %>% 
+  mutate(goalspergame = round(totalgoals / 14, 2)) 
+
+#graph most goals per team in a column plot
+goalspergamegraph <- ggplot(Goalspergame, aes(x = reorder(Team, -goalspergame), y = goalspergame, fill = Team)) +
+  geom_col() +
+  scale_fill_viridis_d() +
+  theme_light()+
+  labs(x = "Team", y = "Total Goals per Game") +
+  theme(axis.text.x=element_text(angle = -270, hjust = 0))
+#make interactive plot
+  ggplotly(goalspergamegraph) 
+```
+&nbsp;  
+
+#### Observations
+* In Figure \@ref(fig:fig1) we can see that the West Coast Fever scored the most total goals in the Super Netball season. 
+
+#### Issues
+* The legend in this plot shows some "1's" next to the team names, figured out through some googling that it was due to using colour instead of fill in the viridis_scale.  
+* I wanted to show data per game, which I couldn't quite workout how to do until I found [this website] (https://statisticsglobe.com/r-sum-by-group-example)
+
+&nbsp;  
+
+### Most goals scored per player
+```{r fig2, fig.cap = 'Column plot showing most goals scored by a player in Super Netball', fig.height = 5, fig.width = 8, fig.align = "center"}
+#create data set of most goals by player (1 and 2 point)
+  Goalsperplayer <- SuperNetball %>% 
+    filter(Statistic == "goals" & Total>"0.0")
+#graph data set
+goalsperplayer <- ggplot(Goalsperplayer, aes(x = reorder(Athlete, -Total), y = Total, fill = Team)) +
+    geom_col() +
+    scale_fill_viridis_d() +
+    theme_light() +
+    labs(x = "Goal Scorers", y = "Goals Scored") +
+    theme(axis.text.x=element_text(angle = -270, hjust = 0)) 
+#interactive plot
+ggplotly(goalsperplayer)
+```
+&nbsp;  
+
+#### Observations
+* In Figure \@ref(fig:fig2) we can see that J. Fowler was the leading goal scorer for the season with 795  
+&nbsp; 
+
+#### Issues
+* I should have split 1 point and 2 point goal scoring for each player. This would have made it more representative of how the goals were scored, and made a total points scored graph.  
+
+&nbsp;  
+
+### Shooting Percentage
+```{r fig3, fig.cap = 'Scatter plot showing total 1 point attempts V. shooting %', fig.height = 3, fig.width = 10, fig.align = "center" }
+#calculate 1 point shooting %
+  SuperNetballShooting1 <- SuperNetball %>% 
+  filter(Statistic == "attempts1" | Statistic == "goal1") %>%
+    filter(Total > "0") %>% 
+  pivot_wider(names_from = Statistic, values_from = Total) %>% 
+  mutate(percent = round(goal1 / attempts1 * 100, 0)) 
+#plot % on graph
+goalpercent <- ggplot(SuperNetballShooting1, mapping =  aes(x = attempts1, y = percent, colour = Athlete)) +
+  geom_point() +
+  scale_colour_viridis_d() +
+  theme_light() +
+  labs(x = "1 point atempts", y = "Shooting %")
+#interactive plot
+ggplotly(goalpercent)
+```
+&nbsp;  
+
+#### Observations
+* In Figure \@ref(fig:fig3) I aimed to show who had the highest shooting percentage accounting for their 1 point attempts. 
+* Despite the large number of attempts, J. Fowler came out as the highest shooting percentage apart from 2 data point which both had less than 20 attempts.
+
+#### Issues
+* I wanted to show all shooters with attempts. To make the data set smaller I should have cut off the data at an arbitrary attempt level, but I wasn't sure what this value should be so I left all values in.
+
+```{r tab1, fig.cap = 'Table showing 2 point shooting percentage per player', fig.height = 3, fig.width = 8, fig.align = "center"}
+#calculate 2point shooting %                                 
+  SuperNetballShooting2 <- SuperNetball %>% 
+  filter(Statistic == "attempts2" | Statistic == "goal2") %>% 
+  filter(Total > "0") %>% 
+    pivot_wider(names_from = Statistic, values_from = Total) %>% 
+    mutate(percent = round(goal2 / attempts2 * 100, 0)) %>% 
+  arrange(desc(percent))
+#create Table showing 
+    SuperNetballShooting2 %>%
+    kbl(caption = "2 point goal shooting %") %>%
+    kable_classic
+
+```
+&nbsp;
+
+#### Observations
+* In Table \@ref(tab:tab1) the 2 point shooting percentage is shown in table format.  
+* The table is ordered by percentage. The top 4 had a high percentage but this was from low attempts. The bottom 5 had 0 made 2 point shots. 
+
+#### Issues
+* There appear to be some outliers of the dataset, like low attempts and made shots. As with Figure \@ref(fig:fig3) above, I should have cut the data at an arbitrary number to account for these outliers.
+
+&nbsp;  
+
+### Assist to turnover ratio
+```{r fig5, fig.cap = 'Graph showing assist to turnover ratio', fig.height = 6, fig.width = 8, fig.align = "center"}
+#Create dataset of Assist to turnover ratio
+TurnoversandAssists <- SuperNetball %>% 
+  filter(Statistic == "goalAssists" | Statistic == "generalPlayTurnovers") %>%
+  pivot_wider(names_from = Statistic, values_from = Total) %>% 
+  mutate(ratio = round(goalAssists / generalPlayTurnovers, 2)) %>% 
+  filter(goalAssists>10)
+#graph assist to turnover ratio
+ATOgraph <- ggplot(TurnoversandAssists, aes(x = Athlete, y = ratio, fill = Team)) +
+  geom_col() +
+  coord_flip() +
+  scale_fill_viridis_d() +
+  theme_light() +
+  labs(x = "Player", y = "Assist to turnover ratio") +
+  theme(axis.text.x=element_text(angle = -270, hjust = 0))
+#make interactive plot
+ggplotly(ATOgraph) 
+
+```
+&nbsp;  
+
+#### Observations
+* Assist to turnover ratio in the NBA is a way to provide context to how effective a player is at creating opportunities for team mates with being careful with the ball and I thought it would be interesting to apply this to netball. 
+* The 2 highest ratio were L. Watson and K. Moloney both from the Vixens.  
+
+#### Issues
+* Not sure if this metric works in Netball, from my knowledge in the NBA assists are not recorded when a penalty (foul in NBA) is the result of the pass. Next time it could be calculated on feed with attempt potentially.  
+
+&nbsp;
+
+## Packages used 
+Tidyverse - used to create plots within project via ggplot  
+Viridis - used to create inclusive plots for people with colourblindness  
+Plotly - used to to create interactive plots to better isolate data  
+Bookdown - used to reference plots within text.
+Dplyr - used to filter and group data.
+KableExtra - used to create table within project.
+```{r}
+citation(package = "base", lib.loc = NULL, auto = NULL)
+citation(package = "tidyverse", lib.loc = NULL, auto = NULL)
+citation(package = "viridis", lib.loc = NULL, auto = NULL)
+citation(package = "plotly", lib.loc = NULL, auto = NULL)
+citation(package = "bookdown", lib.loc = NULL, auto = NULL)
+citation(package = "dplyr", lib.loc = NULL, auto = NULL)
+citation(package = "kableExtra", lib.loc = NULL, auto = NULL)
