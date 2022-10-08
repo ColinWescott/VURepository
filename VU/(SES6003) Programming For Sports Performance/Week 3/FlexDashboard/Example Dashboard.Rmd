@@ -1,0 +1,63 @@
+---
+title: "Example Dashboard"
+output: 
+  flexdashboard::flex_dashboard:
+    storyboard: true 
+    logo: allblacks-logo.svg
+    theme: spacelab
+    source_code: embed
+    social: ["menu"]
+---
+
+```{r setup, include=FALSE}
+#load packages
+library(flexdashboard)
+library(tidyverse)
+library(plotly)
+library(DT)
+library(leaflet)
+library(viridis)
+
+#load data
+RawData <- read.csv("Data/ExampleData.csv")
+```
+
+### Create a ggplotly object
+
+```{r Create plotly object}
+#Use ggplotly
+AthleteSkillplot <- ggplot(RawData, aes(x = Limb, y = SkilledInvolvements)) +
+  geom_jitter(aes(colour = Name)) +
+  scale_colour_viridis_d() +
+geom_boxplot(alpha = 0.3) +
+  scale_y_continuous(expand= c(0,0), limits = c(0, 200)) +
+  theme_classic()
+#make an interactive plot
+ggplotly(AthleteSkillplot)
+
+```
+
+### Create an interactive table
+```{r Make interactive table}
+#Create table using DT
+#Firstly, tidy the data
+TidyData <- RawData %>% 
+  group_by(Name, Limb) %>%
+  summarise(Median = median(SkilledInvolvements),
+            Mean = mean(SkilledInvolvements),
+            SD = sd(SkilledInvolvements), na.rm = FALSE) %>% 
+  mutate(across(where(is.numeric), round, 1)) 
+#create DT table
+datatable(TidyData, extensions = "Buttons",
+          options = list(dom = 'Bfrtip', buttons = c("copy", "csv", "excel", "pdf", "print")))
+  
+```
+
+
+### Embed a map
+```{r Create a map}
+#use leaflet package
+map <- leaflet() %>% setView(lng = 144.9834, lat = -37.8200, zoom = 17)
+map %>% addProviderTiles(providers$CartoDB.Positron)
+```
+

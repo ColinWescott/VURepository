@@ -1,0 +1,15 @@
+---
+title: "Practice Markdown"
+author: "Colin W"
+date: "2022-08-11"
+output: html_document
+---
+
+This is me playing around with Rmarkdown.
+
+Let's load some data:
+
+```{r}
+library(datasets)
+data(airquality)
+summary(airquality)
