@@ -1,0 +1,249 @@
+---
+output:
+  xaringan::moon_reader:
+    css: [default, rladies, rladies-fonts, my-theme.css]
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+class: title-slide
+background-image: url(https://footyology.com.au/wp-content/uploads/optus.png)
+background-size: cover
+.center[
+# Assessment 3
+&nbsp;  
+## Colin Wescott
+### AFL GPS Presentation on `r format(Sys.time(), '%d %B %Y')`
+] 
+
+```{r setup, include=FALSE}
+# load packages
+library(tidyverse)
+library(plotly)
+library(dplyr)
+library(viridis)
+```
+
+```{r import data, include=FALSE}
+# Import dataset
+
+GPSData <- read.csv("Data/AT3_Dataset3.csv")
+```
+
+---
+
+class:left, top
+
+# Typical Analysis
+
+GPS tracking is used in the AFL to track player movement during training and matches. This data is typically analysed to provide information about activity and exertion profiles. 
+
+Typical data collected can include velocity, acceleration and distance covered. This data can then be used to calculate time spent and distance travelled at certain speeds.
+
+These metrics can then be used to compare players and positions. They can be used to evaluate fatigue by comparing output across each quarter of a game.
+
+Data can be presented showing summary statistics using means and standard deviations to show where players fall within the data set (Coutts et al., 2010).
+
+---
+
+class: left, top
+
+# Data Overview
+
+```{r datatibble, include=FALSE}
+#Convert data to tibble
+GPStibble <- as_tibble(GPSData)
+#Show tibble
+GPStibble
+ 
+```
+
+--
+
+```{r ref.label="datatibble", echo=FALSE}
+```
+The data set I am analysing contains GPS data from 5 athletes following 10 stoppages during an AFL game. It provides context to the data through GPS coordinates which show acceleration and velocity. Each player ends their possession with one of 2 types of disposals, a handball or kick.
+
+---
+
+class: left, top
+
+# What to analyse?
+
+### What information can be derived about what happens when players gain possession from stoppages within an AFL game?
+
+* velocity throughout the possession
+* velocity change between quarters
+* maximum velocity achieved during possession
+* acceleration statistics
+  + Mean
+  + Max
+  + Standard deviation
+  
+---
+
+class: left, top
+
+# Velocity during possession
+
+```{r velocity, include=FALSE}
+#plot velocity over time
+Velocitygraph <- ggplot(GPSData, aes(x = Time, y = Velocity, colour = StoppageType)) +
+  geom_line() +
+  scale_colour_viridis_d() +
+  labs(x = "time (s)", y = "velocity (ms−1)") +
+  facet_wrap(~Name, ncol = 1)
+#make interactive plot
+ggplotly(Velocitygraph)
+```
+
+--
+
+```{r ref.label="velocity", fig.cap = 'Graph showing velocity during possession for each player', fig.height = 6, fig.width = 11, fig.align = "center", echo=FALSE}
+```
+
+---
+
+class: left, top
+
+#Mean velocity per quarter
+
+```{r velocity by quarter, include=FALSE}
+#calculate mean and sd of velocity
+MeanVelocityperquarter <- GPSData %>% 
+group_by(Quarter) %>% 
+  summarise(Mean = mean(Velocity),
+            SD = sd(Velocity))
+#plot mean and sd of velocity
+ggplot(MeanVelocityperquarter, aes(x = as.factor(Quarter), y = Mean)) +
+  geom_col() +
+  labs(x = "Quarter", y = "Mean Velocity (ms−1)")
+
+```
+
+--
+
+```{r ref.label="velocity by quarter", fig.cap = 'Graph showing mean velocity per quarter', fig.height = 6, fig.width = 10, fig.align = "center", echo=FALSE}
+```
+
+---
+
+class: left, top
+
+# Max velocity
+
+```{r max velocity per player, include=FALSE}
+#calculate max velocity
+maxvelocity <- GPSData %>% 
+  group_by(Name) %>% 
+  summarise(max = max(Velocity, na.rm=TRUE)) 
+
+#plot max velocity
+ggplot(maxvelocity, aes(x = Name, y = max)) +
+  geom_col() +
+  labs(x = "Name", y = "Max Velocity (ms−1)")
+```
+
+--
+
+```{r ref.label="max velocity per player", fig.cap = 'Graph showing max velocity per player', fig.height = 6, fig.width = 10, fig.align = "center", echo=FALSE}
+```
+
+---
+
+class: top, left
+
+# Acceleration Stats
+
+```{r meanmaxacceleration, include=FALSE}
+#calculate summary stats for acceleration
+Accelerationperplayer <- GPSData %>% 
+  group_by(Name) %>% 
+  summarise(Mean = mean(Acceleration),
+            Max = max(Acceleration),
+            SD = sd(Acceleration))
+#plot summary stats
+accgraph <- ggplot(Accelerationperplayer, aes(x=Name, y=Mean)) +
+  geom_point() +
+geom_errorbar(aes(ymin = Mean-SD, ymax = Mean+SD)) +
+  geom_point(aes(x=Name, y= Max, colour= Name)) +
+scale_colour_viridis_d() +
+  theme_classic() +
+  labs(y = "Acceleration (ms−2)")
+#plot interactive graph
+ggplotly((accgraph))
+```
+
+--
+
+```{r ref.label="meanmaxacceleration", fig.cap = 'Graph showing max velocity per player', fig.height = 6, fig.width = 10, fig.align = "center", echo=FALSE}
+```
+
+---
+
+class: top, left
+
+# Summary
+
+* This data set is small, containing only 10 possessions across 5 players.
+* Provided information to answer my question.
+ + Players move quite differently depending on what stoppage they gained possession from
+ + Possessions can last up to around 20 seconds
+ + Depending on players role, their  mean velocity can stay quite high throughout a match
+ + The maximum velocity of a player can differ between stoppage type
+ + During a possession a player can end up negatively accelerating overall
+
+---
+
+class: top, left
+
+# References
+
+Coutts, A., Quinn, J., Hocking, J., Castagna, C., & Rampinini, E. (2010). Match   running performance in elite Australian Rules Football. Journal Of Science      And Medicine In Sport, 13(5), 543-548. https://doi.org/10.1016/j.jsams.2009.09.004
+
+## Packages used 
+Tidyverse - used to create plots within project via ggplot  
+Viridis - used to create inclusive plots for people with colourblindness  
+Plotly - used to to create interactive plots to better isolate data   
+Dplyr - used to filter and group data.
+
+---
+
+```{r}
+citation(package = "base", lib.loc = NULL, auto = NULL)
+
+```
+
+---
+
+class: top, left
+
+```{r}
+citation(package = "tidyverse", lib.loc = NULL, auto = NULL)
+```
+
+---
+
+class: top, left
+
+```{r}
+citation(package = "viridis", lib.loc = NULL, auto = NULL)
+```
+
+---
+
+class: top, left
+
+```{r}
+citation(package = "plotly", lib.loc = NULL, auto = NULL)
+```
+
+---
+
+class: top, left
+```{r}
+citation(package = "dplyr", lib.loc = NULL, auto = NULL)
+```
+
