@@ -1,0 +1,45 @@
+Play_ID,Pass_ID,Outcome,Score,Athlete_Passer,Athlete_Receiver,Time_Seconds,PassFrom_X,PassFrom_Y,PassTo_X,PassTo_Y,Pass_Distance_m,Pass_Angle_deg,DistanceToGoal_Start,DistanceToGoal_End,PassMetresGained,Athlete_Receiver_Speed,Players_EliminatedWithPass,CircleEntryDepth_m
+1,1,Successful,NA,Caitlin Haver,Breanna Reese,27.56,15.4,7.3,13.2,7.5,2.14,5.26,15.37,13.24,2.14,2.51,-1,NA
+1,2,Successful,NA,Breanna Reese,Chantelle Bair,29.76,12,7.7,12.4,7.6,0.41,14.03,12.01,12.41,-0.4,2.04,-4,NA
+1,3,Successful,NA,Chantelle Bair,Caitlin Haver,31.88,11.7,8.2,6.3,11.7,6.39,32.98,11.7,7.52,4.18,1.53,1,NA
+1,4,Successful,NA,Caitlin Haver,Madelyn Schreibvogel,33.76,5.1,10.7,4,9.5,1.69,49.35,5.98,4.4,1.58,4.38,1,0.45
+1,5,Successful,NA,Madelyn Schreibvogel,Caitlin Haver,35.76,3.4,9.2,3.8,11.6,2.51,81.27,3.73,5.51,-1.78,0.69,-3,NA
+1,6,Successful,NA,Caitlin Haver,Madelyn Schreibvogel,36.8,3.4,11.8,1.8,10.3,2.17,42.13,5.4,3.27,2.13,1.83,2,1.58
+1,7,Successful,NA,Madelyn Schreibvogel,Mackenzie Turner,42.48,1.6,9.6,1.8,7.2,2.36,85.22,2.57,1.88,0.68,0.8,-2,NA
+1,8,Successful,NA,Mackenzie Turner,Madelyn Schreibvogel,44.04,1.1,6.7,1.1,9.5,2.76,88.76,1.43,2.16,-0.72,0.17,-2,NA
+1,9,Successful,Goal,Madelyn Schreibvogel,Mackenzie Turner,48.64,0.8,8.4,1.6,7.3,1.32,50.46,1.07,1.63,-0.57,0.56,0,NA
+10,1,Successful,NA,Caitlin Haver,Madelyn Schreibvogel,943.6,15,7.5,10.4,11.4,6,40.46,14.96,11.07,3.9,1.37,-1,NA
+10,2,Successful,NA,Madelyn Schreibvogel,Breanna Reese,946.4,10.2,10.7,9.2,6.9,3.92,75.7,10.61,9.23,1.39,1.62,-1,NA
+10,3,Successful,Goal,Breanna Reese,Mackenzie Turner,947.88,9.1,6.6,1.5,9.4,8.15,20.15,9.17,2.32,6.85,0.93,3,2.53
+2,1,Unsuccessful,No Goal,Caitlin Haver,Madelyn Schreibvogel,203.76,14.7,7.6,12.3,3.7,4.53,59.33,14.66,12.96,1.69,5.35,0,NA
+3,1,Successful,NA,Caitlin Haver,Breanna Reese,285.44,11.7,7.9,11.2,8.4,0.72,45.29,11.68,11.21,0.48,1.71,-2,NA
+3,2,Successful,NA,Breanna Reese,Madelyn Schreibvogel,287.8,9.9,8.6,4.9,0.8,9.3,57.3,9.93,8.4,1.53,1.11,1,NA
+3,3,Successful,Goal,Madelyn Schreibvogel,Mackenzie Turner,290.68,4.5,1.8,1.6,5.7,4.84,52.93,7.39,2.55,4.84,2.02,2,2.3
+3,4,Successful,NA,Mackenzie Turner,Mackenzie Turner,296.04,2,7,1.2,7.4,0.86,22.45,2.04,1.18,0.85,0.68,2,NA
+4,1,Successful,NA,Caitlin Haver,Nicole Vaught,337.4,15.1,7.6,18.3,10,4,37.78,15.12,18.44,-3.32,1.12,-4,NA
+4,2,Successful,NA,Nicole Vaught,Caitlin Haver,338.52,18.3,9.7,14,12.3,5.02,32.03,18.37,14.77,3.6,2.95,3,NA
+4,3,Successful,NA,Caitlin Haver,Breanna Reese,340,14.2,13.9,7.2,12.4,7.13,11.69,15.5,8.67,6.84,4.26,0,NA
+4,4,Successful,NA,Breanna Reese,Madelyn Schreibvogel,346.44,6.9,14.1,1.1,13.5,5.85,5.51,9.47,5.99,3.48,2.08,6,NA
+4,5,Successful,NA,Madelyn Schreibvogel,Caitlin Haver,349.84,1.6,11.4,2.5,3.2,8.22,83.3,4.05,5.09,-1.04,1.32,-3,NA
+4,6,Successful,Goal,Caitlin Haver,Madelyn Schreibvogel,351.52,2.3,3,4.2,6.8,4.28,63.33,5.2,4.31,0.89,3.85,-3,0.54
+4,7,Successful,NA,Madelyn Schreibvogel,Madelyn Schreibvogel,352.28,3.9,6,0.2,8.9,4.66,38.42,4.21,1.29,2.92,2.74,3,NA
+4,8,Successful,NA,Madelyn Schreibvogel,Mackenzie Turner,365.16,0.2,8.7,2.1,7.5,2.21,31.61,1.08,2.1,-1.03,0.74,-3,NA
+5,1,Successful,NA,Caitlin Haver,Chantelle Bair,562.48,15.8,7.9,18.9,8.2,3.15,5.68,15.78,18.92,-3.14,1.91,-5,NA
+5,2,Successful,NA,Chantelle Bair,Breanna Reese,564.2,18.2,10,14.1,7.1,5,35.05,18.35,14.11,4.24,3.98,2,NA
+5,3,Successful,NA,Breanna Reese,Caitlin Haver,566.48,14.1,5.7,9.8,3.8,4.69,24.34,14.2,10.52,3.68,0.54,2,NA
+5,4,Successful,NA,Caitlin Haver,Madelyn Schreibvogel,567.76,9.6,2.5,7.2,1,2.85,31.47,10.9,9.77,1.13,2.65,-3,NA
+5,5,Successful,NA,Madelyn Schreibvogel,Breanna Reese,569.76,7,2.5,2.7,13.1,11.43,67.9,8.62,6.1,2.52,3.01,3,NA
+5,6,Successful,Goal,Breanna Reese,Madelyn Schreibvogel,574.08,1.3,12.5,0.7,7.7,4.78,83.06,5.01,0.71,4.29,2.04,1,4.14
+6,1,Successful,NA,Caitlin Haver,Breanna Reese,620.32,14.5,7.8,11.2,10.7,4.48,41.04,14.55,11.58,2.97,1.72,2,NA
+6,2,Successful,NA,Breanna Reese,Mackenzie Turner,621.6,10.8,10.2,6.2,6.9,5.76,35.6,11.15,6.2,4.95,1.57,3,NA
+6,3,Successful,NA,Mackenzie Turner,Breanna Reese,622.6,6.5,6.8,5.8,8.4,1.75,68.63,6.54,5.89,0.65,2.86,-6,NA
+6,4,Successful,Goal,Breanna Reese,Mackenzie Turner,625.6,5.5,8.1,1.3,9.1,4.35,13,5.53,1.93,3.6,0.81,5,2.92
+7,1,Successful,NA,Caitlin Haver,Madelyn Schreibvogel,677.6,15.2,7.6,11.1,10.8,5.19,38.1,15.2,11.56,3.64,2.31,-1,NA
+7,2,Successful,NA,Madelyn Schreibvogel,Breanna Reese,680,10.2,11.6,9.7,5.9,5.74,84.91,10.95,9.84,1.11,0.97,-1,NA
+7,3,Successful,NA,Breanna Reese,Nicole Vaught,681.12,9.3,6.3,10.8,9.4,3.43,64.58,9.38,10.9,-1.52,2.27,-3,NA
+7,4,Successful,NA,Nicole Vaught,Breanna Reese,681.72,10.7,9.5,8.3,8.9,2.51,12.72,10.88,8.38,2.51,2.26,1,NA
+7,5,Successful,NA,Breanna Reese,Madelyn Schreibvogel,688.24,7.3,9.3,1.2,9.9,6.06,6.13,7.44,2.62,4.83,2.49,5,2.23
+7,6,Successful,Goal,Madelyn Schreibvogel,Mackenzie Turner,691.8,1.2,9.1,1,7.8,1.34,82.12,1.93,1.04,0.89,0.42,-1,NA
+9,1,Unsuccessful,NA,Caitlin Haver,Nicole Vaught,874.84,15.2,7.5,15.9,1.8,5.77,82.79,15.2,16.96,-1.76,3.72,-3,NA
+9,2,Unsuccessful,NA,Nicole Vaught,Breanna Reese,875.8,14.1,1.3,8,3.5,6.45,19.86,15.41,8.99,6.42,1.69,1,NA
+9,3,Unsuccessful,No Goal,Breanna Reese,Mackenzie Turner,877.08,5.9,3.4,3.1,4.8,3.06,27.46,7.22,4.22,3,0.93,0,0.63
